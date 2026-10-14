@@ -1,28 +1,85 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Target : MonoBehaviour
 {
+    [Header("Target Settings")]
+    [SerializeField] int hitPoints = 1;
+    [SerializeField] int scoreValue = 100;
+
+    [Header("Effects")]
     [SerializeField] GameObject boomVFX;
-    void OnTriggerEnter(Collider other) // Unity calls this when a bullet hits
+
+    [Header("References")]
+    [SerializeField] ScoreManager scoreManager;
+
+    int startingHitPoints;
+    bool defeated = false;
+
+    void Awake()
     {
-        // Play the explosion effect
+        startingHitPoints = hitPoints;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Bullet"))
+        {
+            return;
+        }
+
+        // Remove the bullet that hit this target.
+        Destroy(other.gameObject);
+
+        TakeHit(1);
+    }
+
+    public void TakeHit(int damage)
+    {
+        if (defeated)
+        {
+            return;
+        }
+
+        hitPoints -= damage;
+
+        Debug.Log(gameObject.name + " hit! HP remaining: " + hitPoints);
+
+        if (hitPoints <= 0)
+        {
+            DefeatTarget();
+        }
+    }
+
+    void DefeatTarget()
+    {
+        defeated = true;
+
+        // Play the explosion only when the target is defeated.
         if (boomVFX != null)
         {
-            GameObject explosion = Instantiate(boomVFX, transform.position, Quaternion.identity);
-
-            ParticleSystem particles = explosion.GetComponent<ParticleSystem>();
-
-            if (particles != null)
-            {
-                particles.Play();
-            }
+            Instantiate(boomVFX, transform.position, Quaternion.identity);
         }
 
-        if (other.gameObject.CompareTag("Bullet")) // check if the other object is a bullet
+        // Add this target's points to the scoreboard.
+        if (scoreManager != null)
         {
-            Debug.Log("Bullet hit target!"); // log the hit
-            Destroy(other.gameObject); // remove the bullet
-            Destroy(gameObject); // remove this target
+            scoreManager.AddScore(scoreValue);
         }
+        
+        else
+        {
+            Debug.LogWarning("ScoreManager is not assigned to " + gameObject.name);
+        }
+
+        // Disable the target instead of destroying it.
+        gameObject.SetActive(false);
+    }
+
+    public void ResetTarget()
+    {
+        hitPoints = startingHitPoints;
+        defeated = false;
+        gameObject.SetActive(true);
     }
 }
