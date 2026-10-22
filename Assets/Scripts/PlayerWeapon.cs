@@ -1,0 +1,27 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerWeapon : MonoBehaviour
+{
+    [SerializeField] GameObject[] lasers;
+
+    bool isFiring = false;
+
+    private void Update()
+    {
+        ProcessFiring();
+    }
+    void OnFire(InputValue value)
+    {
+        isFiring = value.isPressed;
+    }
+
+    void ProcessFiring()
+    {
+        foreach (GameObject laser in lasers)
+        {
+            ParticleSystem.EmissionModule emissionModule = laser.GetComponent<ParticleSystem>().emission;
+            emissionModule.enabled = isFiring;
+        }
+    }
+}
