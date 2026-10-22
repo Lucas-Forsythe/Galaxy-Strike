@@ -1,4 +1,5 @@
 # Galaxy-Strike
+Lab Part 2 Link - https://github.com/Lucas-Forsythe/Galaxy-Strike.git
 
 Class Exercise Week 7 Link - https://play.unity.com/en/games/ccaba849-a60d-452d-9106-88f54f8bbf86/class-exercise-target-blaster
 
