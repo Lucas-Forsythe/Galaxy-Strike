@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] GameObject explosionVFX;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnParticleCollision(GameObject other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(other);
+        Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 }
