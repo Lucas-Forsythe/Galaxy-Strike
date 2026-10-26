@@ -1,6 +1,8 @@
 # Galaxy-Strike
 Lab Part 2 Link - https://play.unity.com/en/games/34b432c9-f1fd-4cdf-bc0e-5eae3733f746/galaxystrike2
 
+Target Blaster 3 - https://play.unity.com/en/games/0244424a-124b-463f-926b-3f2e8424e741/target-blaster-v3
+
 Class Exercise Week 7 Link - https://play.unity.com/en/games/ccaba849-a60d-452d-9106-88f54f8bbf86/class-exercise-target-blaster
 
 
