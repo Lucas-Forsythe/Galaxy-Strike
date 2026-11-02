@@ -1,3 +1,31 @@
+
+using UnityEngine;
+
+public class CollisionHandler : MonoBehaviour
+{
+    [SerializeField] GameObject explosionVFX;
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("ENEMY HIT!");
+            Instantiate(explosionVFX, other.transform.position, Quaternion.identity);
+            Destroy(other);
+        }
+        Debug.Log("PARTICLE COLLISION DETECTED with: " + other.name);
+    }
+}
+
+/*
+
+            Instantiate(explosionVFX, other.transform.position, Quaternion.identity);
+            Destroy(other);
+        }
+    }
+}
+
+/*
 using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
@@ -11,3 +39,4 @@ public class CollisionHandler : MonoBehaviour
         Destroy(this.gameObject);
     }
 }
+*/
